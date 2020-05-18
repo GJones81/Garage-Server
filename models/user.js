@@ -20,6 +20,7 @@ let userSchema = new mongoose.Schema({
 		minlength: 8,
 		maxlength: 20
 	},
+	phone: String,
 	pic: String,
 	admin: {
 		type: Boolean,
