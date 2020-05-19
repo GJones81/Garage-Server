@@ -87,11 +87,11 @@ router.put('/item/:id', (req, res) => {
 
 //DELETE route to delete items
 router.delete('/item/:id', (req, res) => {
-	db.List.findOne({ _id: req.params.listId })
+	db.List.findOne({ _id: req.body.listId })
 	.then((list) => {
 		let item = list.item.id(req.params.id)
-		item.pull()
-		list.save()
+		item.remove()
+		return list.save()
 	})
 	.then(() => {
 		res.send({ message: "Successfully Deleted Item", status:"200"})
