@@ -8,6 +8,7 @@ let expressJwt = require('express-jwt')
 // Instantiate app
 let app = express()
 let rowdyResults = rowdyLogger.begin(app)
+//let bodyParser = require('body-parser')
 
 // Set up middleware
 app.use(morgan('dev'))

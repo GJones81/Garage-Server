@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 //creates a sale WITHOUT any list attached
 router.post('/', (req, res) => {
 	db.Sale.create({
-		owner: req.user,
+		user: req.user,
 		address: req.body.address,
 		date: req.body.date,
 	})
