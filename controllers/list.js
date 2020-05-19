@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
 		//List.addItem( req.body.item, req.body.price, req.body.pic, req.body.condition)
 	})
 	.then(() => {
-		res.redirect('/list')
+		res.send({message: "Successfully Updated List", status:'200'})
 	})
 	.catch(err => {
 		console.log('Error', err)
@@ -36,6 +36,25 @@ router.post('/', (req, res) => {
 })
 
 //PUT route to edit items
+router.put('/:id', (req, res) => {
+	//res.send('Successfully hitting PUT route')
+	db.List.findOneAndUpdate({ _id: req.params.id },{
+		user: req.body.user,
+		address: req.body.address,
+		item: {
+			name: req.body.item,
+			price: req.body.price,
+			image: req.body.image,
+			condition: req.body.condition
+}
+})
+	.then(() => {
+		res.send({ message: "Successfully Updated List", status:'200'})
+	})
+	.catch(err => {
+		console.log('Error', err)
+	})
+})
 
 //DELETE route to delete items
 
