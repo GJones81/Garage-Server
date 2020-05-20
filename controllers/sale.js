@@ -7,15 +7,15 @@ router.get('/', (req, res) => {
 	db.Sale.find({ user: req.user._id })
 	.populate('user')
 	.populate('list')
-	.then((Sales) => {
-		res.send({message: 'List of All Sales', status: '200'}, {Sales} )
+	.then((currentSales) => {
+		res.send({message: 'List of All Sales', status: '200'}, {currentSales} )
 	})
 	.catch(err => {
 		console.log('Error', err)
 	})
 })
 
-//creates a sale 
+//creates a sale event 
 router.post('/', (req, res) => {
 	db.Sale.create({
 		user: req.user,
