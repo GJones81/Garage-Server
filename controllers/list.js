@@ -7,7 +7,7 @@ router.get('/', (req,res) => {
 	db.List.find({ user: req.user._id})
 	.populate('user')
 	.then(currentList => {
-		res.send(currentList)
+		res.send({message: 'Successfully Retrieved Current List', status: '200'}, {currentList})
 	})
 	.catch(err => {
 		console.log('Error', err)

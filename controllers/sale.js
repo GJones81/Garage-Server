@@ -7,8 +7,8 @@ router.get('/', (req, res) => {
 	db.Sale.find({ user: req.user._id })
 	.populate('user')
 	.populate('list')
-	.then(() => {
-		res.send({message: 'List of All Sales', status: '200'})
+	.then((Sales) => {
+		res.send({message: 'List of All Sales', status: '200'}, {Sales} )
 	})
 	.catch(err => {
 		console.log('Error', err)
