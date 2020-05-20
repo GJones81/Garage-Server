@@ -9,4 +9,4 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/Garage-Server',
 
 module.exports.User = require('./user')
 module.exports.List = require('./list')
-module.exports.Garage = require('./sale')
+module.exports.Sale = require('./sale')

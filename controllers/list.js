@@ -28,13 +28,24 @@ router.post('/', (req, res) => {
 	})
 })
 
-//PUT route to edit the start of a list
+//PUT route to edit the Title of a list
 router.put('/:id', (req, res) => {
-	db.List.findOneAndUpdate({ _id: req.params.id },{
+	db.List.findByIdAndUpdate({ _id: req.params.id },{
 		listTitle: req.body.listTitle
 	})
 	.then(() => {
-		res.send({message: 'Successfully Edited a List', status: '200'})
+		res.send({message: 'Successfully Edited a List Title', status: '200'})
+	})
+	.catch(err => {
+		console.log('Error', err)
+	})
+})
+
+//DELETE route to delete a list (presumably once it's empty)
+router.delete('/:id', (req, res) => {
+	db.List.findByIdAndDelete({ _id: req.params.id})
+	.then(() => {
+		res.send({message: 'Successfully Deleted A List', status: '200'})
 	})
 	.catch(err => {
 		console.log('Error', err)
