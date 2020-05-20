@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 	.populate('user')
 	.populate('list')
 	.then((currentSales) => {
-		res.send({message: 'List of All Sales', status: '200'}, {currentSales} )
+		res.send({currentSales})
 	})
 	.catch(err => {
 		console.log('Error', err)
