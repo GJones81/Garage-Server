@@ -6,8 +6,8 @@ let jwt = require('jsonwebtoken')
 router.get('/', (req,res) => {
 	db.List.find({ user: req.user._id})
 	.populate('user')
-	.then(currentList => {
-		res.send({currentList})
+	.then(currentLists => {
+		res.send({currentLists})
 	})
 	.catch(err => {
 		console.log('Error', err)
