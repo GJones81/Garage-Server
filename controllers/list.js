@@ -56,7 +56,7 @@ router.delete('/:id', (req, res) => {
 router.post('/item', (req, res) => {
 	db.List.findOneAndUpdate({
 		user: req.user,
-		listTitle: req.body.listTitle},
+		_id: req.body._id},
 		{ $push: { item: {
 			name: req.body.name,
 			price: req.body.price,
