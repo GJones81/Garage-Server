@@ -22,6 +22,7 @@ app.use('/auth', require('./controllers/auth'))
 app.use('/profile', expressJwt({secret: process.env.JWT_SECRET}), require('./controllers/profile'))
 app.use('/list', expressJwt({secret: process.env.JWT_SECRET}), require('./controllers/list'))
 app.use('/sale', expressJwt({secret: process.env.JWT_SECRET}), require('./controllers/sale'))
+app.use('/discovery',expressJwt({secret: process.env.JWT_SECRET}), require('./controllers/discovery'))
 
 app.get('*', (req, res) => {
   res.status(404).send({ message: 'Not Found' })
