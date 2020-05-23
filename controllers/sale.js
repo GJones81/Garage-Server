@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 //req.body.list requires the list _id 
 router.post('/', (req, res) => {
 	db.Sale.create({
-		user: req.user,
+		user: req.body.user,
 		address: req.body.address,
 		date: req.body.date,
 		list: req.body.list

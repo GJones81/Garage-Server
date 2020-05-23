@@ -55,7 +55,7 @@ router.delete('/:id', (req, res) => {
 //POST route to add items to a created list
 router.post('/item', (req, res) => {
 	db.List.findOneAndUpdate({
-		user: req.user,
+		user: req.user._id,
 		_id: req.body._id},
 		{ $push: { item: {
 			name: req.body.name,
