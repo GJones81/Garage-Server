@@ -68,7 +68,4 @@ router.post('/signup', (req, res) => {
   })
 })
 
-//adding stuff to enable a git add
-//will remove later
-
 module.exports = router
