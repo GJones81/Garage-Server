@@ -1,5 +1,5 @@
 {
-  "name": "mern-auth-server",
+  "name": "garage-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -20,5 +20,8 @@
     "mongoose": "^5.8.9",
     "morgan": "^1.9.1",
     "rowdy-logger": "^1.0.2"
+  },
+  "engines": {
+    "node": "v12.16.1"
   }
 }
