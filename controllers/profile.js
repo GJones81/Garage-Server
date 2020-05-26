@@ -2,7 +2,7 @@ let router = require('express').Router()
 
 // NOTE: User should be logged in to access this route
 router.get('/', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+  res.setHeader('Access-Control-Allow-Origin', '*')
   // The user is logged in, so req.user should have data!
   // TODO: Anything you want here!
 

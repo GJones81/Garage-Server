@@ -6,7 +6,7 @@ let jwt = require('jsonwebtoken')
 
 // POST /auth/login (find and validate user; send token)
 router.post('/login', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+  res.setHeader('Access-Control-Allow-Origin', '*')
   console.log(req.body)
   //Look up user by email
   db.User.findOne({ email: req.body.email})
@@ -35,7 +35,7 @@ router.post('/login', (req, res) => {
 
 // POST to /auth/signup (create user; generate token)
 router.post('/signup', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+  res.setHeader('Access-Control-Allow-Origin', '*')
   console.log(req.body)
   //Look up the user by email to make sure they are "new"
   db.User.findOne({ email: req.body.email })

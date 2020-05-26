@@ -5,7 +5,7 @@ let router = require('express').Router()
 //Further filter by distance will happen on 
 //the client side
 router.get('/', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+    res.setHeader('Access-Control-Allow-Origin', '*')
     db.Sale.find()
     .populate('list')
     .then((publicSales) => {

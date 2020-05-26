@@ -4,7 +4,7 @@ let jwt = require('jsonwebtoken')
 
 //gets a list of all scheduled sales
 router.get('/', (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+	res.setHeader('Access-Control-Allow-Origin', '*')
 	db.Sale.find({ user: req.user._id })
 	.populate('user')
 	.populate('list')
@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 //creates a sale event
 //req.body.list requires the list _id 
 router.post('/', (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+	res.setHeader('Access-Control-Allow-Origin', '*')
 	db.Sale.create({
 		user: req.body.user,
 		address: req.body.address,
@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
 
 //edit a current sale
 router.put('/:id', (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+	res.setHeader('Access-Control-Allow-Origin', '*')
 	db.Sale.findByIdAndUpdate({_id: req.params.id},{
 		address: req.body.address,
 		date: req.body.date,
@@ -54,7 +54,7 @@ router.put('/:id', (req, res) => {
 
 //delete a sale
 router.delete('/:id', (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+	res.setHeader('Access-Control-Allow-Origin', '*')
 	db.Sale.findByIdAndDelete({_id: req.params.id})
 	.then(() => {
 		res.send({message: 'Successfully Deleted a Sale', status: '200'})

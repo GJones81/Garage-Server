@@ -4,7 +4,7 @@ let jwt = require('jsonwebtoken')
 
 //GET route to retrieve a current list
 router.get('/', (req,res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+	res.setHeader('Access-Control-Allow-Origin', '*')
 	db.List.find({ user: req.user._id})
 	.populate('user')
 	.then(currentLists => {
@@ -17,7 +17,7 @@ router.get('/', (req,res) => {
 
 //POST route to create the start of a new list
 router.post('/', (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+	res.setHeader('Access-Control-Allow-Origin', '*')
 	db.List.create({
 		user: req.user,
 		listTitle: req.body.listTitle,
@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
 
 //PUT route to edit the Title of a list
 router.put('/:id', (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+	res.setHeader('Access-Control-Allow-Origin', '*')
 	db.List.findByIdAndUpdate({ _id: req.params.id },{
 		listTitle: req.body.listTitle
 	})
@@ -46,7 +46,7 @@ router.put('/:id', (req, res) => {
 
 //DELETE route to delete a list (presumably once it's empty)
 router.delete('/:id', (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+	res.setHeader('Access-Control-Allow-Origin', '*')
 	db.List.findByIdAndDelete({ _id: req.params.id})
 	.then(() => {
 		res.send({message: 'Successfully Deleted A List', status: '200'})
@@ -58,7 +58,7 @@ router.delete('/:id', (req, res) => {
 
 //POST route to add items to a created list
 router.post('/item', (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+	res.setHeader('Access-Control-Allow-Origin', '*')
 	db.List.findOneAndUpdate({
 		user: req.user._id,
 		_id: req.body._id},
@@ -83,7 +83,7 @@ router.post('/item', (req, res) => {
 //req.params.id NEEDS the item _id
 //req.body.listId NEEDS the list _id
 router.put('/item/:id', (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+	res.setHeader('Access-Control-Allow-Origin', '*')
 	db.List.findOne({ _id: req.body.listId })
 	.then((list) => {
 		let item = list.item.id(req.params.id)
@@ -104,7 +104,7 @@ router.put('/item/:id', (req, res) => {
 
 //DELETE route to delete items
 router.delete('/item/:id', (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
+	res.setHeader('Access-Control-Allow-Origin', '*')
 	db.List.findOne({ _id: req.body.listId })
 	.then((list) => {
 		let item = list.item.id(req.params.id)
