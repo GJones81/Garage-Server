@@ -11,7 +11,10 @@ router.get('/', cors(corsOrigin), (req,res) => {
 	db.List.find({ user: req.user._id})
 	.populate('user')
 	.then(currentLists => {
-		res.send({currentLists})
+		res.send([
+			{currentLists},
+			{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+		])
 	})
 	.catch(err => {
 		console.log('Error', err)
@@ -25,7 +28,10 @@ router.post('/', cors(corsOrigin), (req, res) => {
 		listTitle: req.body.listTitle,
 	})
 	.then(() => {
-		res.send({message: "Successfully Created List", status:'200'})
+		res.send([
+			{message: "Successfully Created List", status:'200'},
+			{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+		])
 	})
 	.catch(err => {
 		console.log('Error', err)
@@ -38,7 +44,10 @@ router.put('/:id', cors(corsOrigin), (req, res) => {
 		listTitle: req.body.listTitle
 	})
 	.then(() => {
-		res.send({message: 'Successfully Edited a List Title', status: '200'})
+		res.send([
+			{message: 'Successfully Edited a List Title', status: '200'},
+			{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+		])
 	})
 	.catch(err => {
 		console.log('Error', err)
@@ -71,7 +80,10 @@ router.post('/item', cors(corsOrigin), (req, res) => {
 			new: true
 	})
 	.then(() => {
-		res.send({ message: "Successfully Added Item to List", status:'200'})
+		res.send([
+			{ message: "Successfully Added Item to List", status:'200'},
+			{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+		])
 	})
 	.catch(err => {
 		console.log('Error', err)
@@ -91,7 +103,10 @@ router.put('/item/:id', cors(corsOrigin), (req, res) => {
 		item.condition = req.body.condition
 		list.save()
 		.then(() =>{
-			res.send({ message: "Successfully Updated An Item", status:'200'})
+			res.send([
+				{ message: "Successfully Updated An Item", status:'200'},
+				{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+			])
 		})
 		
 	})
@@ -109,7 +124,10 @@ router.delete('/item/:id', cors(corsOrigin), (req, res) => {
 		return list.save()
 	})
 	.then(() => {
-		res.send({ message: "Successfully Deleted Item", status:"200"})
+		res.send([
+			{ message: "Successfully Deleted Item", status:"200"},
+			{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+		])
 	})
 	.catch(err => {
 		console.log('Error', err)

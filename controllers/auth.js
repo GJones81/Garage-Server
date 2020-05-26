@@ -27,8 +27,10 @@ router.post('/login', cors(corsOrigin), (req, res) => {
       expiresIn: 60 * 60 * 8 // 8 hours, in seconds
     })
     console.log(token)
-    res.send({ token })
-  })
+    res.send([
+      {token},
+      {'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+    ])
   .catch(err => {
     console.log('Error in POST auth/login', err)
     res.status(503).send({message: "Server-side error"})
@@ -53,7 +55,10 @@ router.post('/signup', cors(corsOrigin),(req, res) => {
            expiresIn: 60 * 60 * 8 // 8 hours in seconds
          })
 
-         res.send({ token })
+         res.send([
+           {token},
+           {'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+          ])
        })
        .catch(err => {
          console.log('Error creating user', err)

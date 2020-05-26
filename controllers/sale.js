@@ -12,7 +12,10 @@ router.get('/', cors(corsOrigin), (req, res) => {
 	.populate('user')
 	.populate('list')
 	.then((currentSales) => {
-		res.send({currentSales})
+		res.send([
+			{currentSales},
+			{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+		])
 	})
 	.catch(err => {
 		console.log('Error', err)
@@ -29,7 +32,10 @@ router.post('/', cors(corsOrigin), (req, res) => {
 		list: req.body.list
 	})
 	.then(() => {
-		res.send({ message: "Successfully Created a Sale", status: '200'})
+		res.send([
+			{ message: "Successfully Created a Sale", status: '200'},
+		{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+		])
 	})
 	.catch(err => {
 		console.log('Error', err)
@@ -46,7 +52,10 @@ router.put('/:id', cors(corsOrigin), (req, res) => {
 	})
 	.populate('list')
 	.then(() =>{
-		res.send({ message: 'Successfully Edited a Sale', status: '200'})
+		res.send([
+			{ message: 'Successfully Edited a Sale', status: '200'},
+			{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+		])
 	})
 	.catch(err => {
 		console.log('Error', err)
@@ -57,7 +66,10 @@ router.put('/:id', cors(corsOrigin), (req, res) => {
 router.delete('/:id', cors(corsOrigin), (req, res) => {
 	db.Sale.findByIdAndDelete({_id: req.params.id})
 	.then(() => {
-		res.send({message: 'Successfully Deleted a Sale', status: '200'})
+		res.send([
+			{message: 'Successfully Deleted a Sale', status: '200'},
+			{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+		])
 	})
 	.catch(err => {
 		console.log('Error', err)

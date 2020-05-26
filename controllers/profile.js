@@ -12,7 +12,10 @@ router.get('/', cors(corsOrigin), (req, res) => {
   // NOTE: This is the user data from the time the token was issued
   // WARNING: If you update the user info those changes will not be reflected here
   // To avoid this, reissue a token when you update user data
-  res.send({ message: 'Secret message for logged in people ONLY!' })
+  res.send([
+    { message: 'Secret message for logged in people ONLY!' },
+    {'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+  ])
 })
 
 module.exports = router

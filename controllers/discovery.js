@@ -12,7 +12,10 @@ router.get('/', cors(corsOrigin), (req, res) => {
     db.Sale.find()
     .populate('list')
     .then((publicSales) => {
-        res.send({publicSales})
+        res.send([
+            {publicSales},
+            {'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
+        ])
     })
     .catch(err => {
         console.log('Error', err)
