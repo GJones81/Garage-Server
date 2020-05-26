@@ -2,8 +2,12 @@ let db = require('../models')
 let router = require('express').Router()
 let jwt = require('jsonwebtoken')
 
+const corsOrigin = {
+	origin: 'https://sam-guy-garage.herokuapp.com/'
+  }
+
 //GET route to retrieve a current list
-router.get('/', (req,res) => {
+router.get('/', cors(corsOrigin), (req,res) => {
 	db.List.find({ user: req.user._id})
 	.populate('user')
 	.then(currentLists => {
@@ -15,7 +19,7 @@ router.get('/', (req,res) => {
 })
 
 //POST route to create the start of a new list
-router.post('/', (req, res) => {
+router.post('/', cors(corsOrigin), (req, res) => {
 	db.List.create({
 		user: req.user,
 		listTitle: req.body.listTitle,
@@ -29,7 +33,7 @@ router.post('/', (req, res) => {
 })
 
 //PUT route to edit the Title of a list
-router.put('/:id', (req, res) => {
+router.put('/:id', cors(corsOrigin), (req, res) => {
 	db.List.findByIdAndUpdate({ _id: req.params.id },{
 		listTitle: req.body.listTitle
 	})
@@ -42,7 +46,7 @@ router.put('/:id', (req, res) => {
 })
 
 //DELETE route to delete a list (presumably once it's empty)
-router.delete('/:id', (req, res) => {
+router.delete('/:id', cors(corsOrigin), (req, res) => {
 	db.List.findByIdAndDelete({ _id: req.params.id})
 	.then(() => {
 		res.send({message: 'Successfully Deleted A List', status: '200'})
@@ -53,7 +57,7 @@ router.delete('/:id', (req, res) => {
 })
 
 //POST route to add items to a created list
-router.post('/item', (req, res) => {
+router.post('/item', cors(corsOrigin), (req, res) => {
 	db.List.findOneAndUpdate({
 		user: req.user._id,
 		_id: req.body._id},
@@ -77,7 +81,7 @@ router.post('/item', (req, res) => {
 //PUT route to edit an item on the list
 //req.params.id NEEDS the item _id
 //req.body.listId NEEDS the list _id
-router.put('/item/:id', (req, res) => {
+router.put('/item/:id', cors(corsOrigin), (req, res) => {
 	db.List.findOne({ _id: req.body.listId })
 	.then((list) => {
 		let item = list.item.id(req.params.id)
@@ -97,7 +101,7 @@ router.put('/item/:id', (req, res) => {
 })
 
 //DELETE route to delete items
-router.delete('/item/:id', (req, res) => {
+router.delete('/item/:id', cors(corsOrigin), (req, res) => {
 	db.List.findOne({ _id: req.body.listId })
 	.then((list) => {
 		let item = list.item.id(req.params.id)

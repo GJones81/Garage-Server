@@ -2,8 +2,12 @@ let db = require('../models')
 let router = require('express').Router()
 let jwt = require('jsonwebtoken')
 
+const corsOrigin = {
+	origin: 'https://sam-guy-garage.herokuapp.com/'
+  }
+
 //gets a list of all scheduled sales
-router.get('/', (req, res) => {
+router.get('/', cors(corsOrigin), (req, res) => {
 	db.Sale.find({ user: req.user._id })
 	.populate('user')
 	.populate('list')
@@ -17,7 +21,7 @@ router.get('/', (req, res) => {
 
 //creates a sale event
 //req.body.list requires the list _id 
-router.post('/', (req, res) => {
+router.post('/', cors(corsOrigin), (req, res) => {
 	db.Sale.create({
 		user: req.body.user,
 		address: req.body.address,
@@ -34,7 +38,7 @@ router.post('/', (req, res) => {
 })
 
 //edit a current sale
-router.put('/:id', (req, res) => {
+router.put('/:id', cors(corsOrigin), (req, res) => {
 	db.Sale.findByIdAndUpdate({_id: req.params.id},{
 		address: req.body.address,
 		date: req.body.date,
@@ -50,7 +54,7 @@ router.put('/:id', (req, res) => {
 })
 
 //delete a sale
-router.delete('/:id', (req, res) => {
+router.delete('/:id', cors(corsOrigin), (req, res) => {
 	db.Sale.findByIdAndDelete({_id: req.params.id})
 	.then(() => {
 		res.send({message: 'Successfully Deleted a Sale', status: '200'})

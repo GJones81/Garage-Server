@@ -1,7 +1,11 @@
 let router = require('express').Router()
 
+const corsOrigin = {
+  origin: 'https://sam-guy-garage.herokuapp.com/'
+}
+
 // NOTE: User should be logged in to access this route
-router.get('/', (req, res) => {
+router.get('/', cors(corsOrigin), (req, res) => {
   // The user is logged in, so req.user should have data!
   // TODO: Anything you want here!
 

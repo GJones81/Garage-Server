@@ -3,8 +3,12 @@ let db = require('../models')
 let router = require('express').Router()
 let jwt = require('jsonwebtoken')
 
+const corsOrigin = {
+  origin: 'https://sam-guy-garage.herokuapp.com/'
+}
+
 // POST /auth/login (find and validate user; send token)
-router.post('/login', (req, res) => {
+router.post('/login', cors(corsOrigin), (req, res) => {
   console.log(req.body)
   //Look up user by email
   db.User.findOne({ email: req.body.email})
@@ -32,7 +36,7 @@ router.post('/login', (req, res) => {
 })
 
 // POST to /auth/signup (create user; generate token)
-router.post('/signup', (req, res) => {
+router.post('/signup', cors(corsOrigin),(req, res) => {
   console.log(req.body)
   //Look up the user by email to make sure they are "new"
   db.User.findOne({ email: req.body.email })

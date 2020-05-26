@@ -1,10 +1,14 @@
 let db = require('../models')
 let router = require('express').Router()
 
+const corsOrigin = {
+    origin: 'https://sam-guy-garage.herokuapp.com/'
+  }
+
 //gets all the sales documents. Regardless of user Id
 //Further filter by distance will happen on 
 //the client side
-router.get('/', (req, res) => {
+router.get('/', cors(corsOrigin), (req, res) => {
     db.Sale.find()
     .populate('list')
     .then((publicSales) => {
