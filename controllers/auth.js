@@ -3,12 +3,10 @@ let db = require('../models')
 let router = require('express').Router()
 let jwt = require('jsonwebtoken')
 
-const corsOrigin = {
-  origin: 'https://sam-guy-garage.herokuapp.com/'
-}
 
 // POST /auth/login (find and validate user; send token)
-router.post('/login', cors(corsOrigin), (req, res) => {
+router.post('/login', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
   console.log(req.body)
   //Look up user by email
   db.User.findOne({ email: req.body.email})
@@ -27,10 +25,8 @@ router.post('/login', cors(corsOrigin), (req, res) => {
       expiresIn: 60 * 60 * 8 // 8 hours, in seconds
     })
     console.log(token)
-    res.send([
-      {token},
-      {'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
-    ])
+    res.send({token})
+  })
   .catch(err => {
     console.log('Error in POST auth/login', err)
     res.status(503).send({message: "Server-side error"})
@@ -38,7 +34,8 @@ router.post('/login', cors(corsOrigin), (req, res) => {
 })
 
 // POST to /auth/signup (create user; generate token)
-router.post('/signup', cors(corsOrigin),(req, res) => {
+router.post('/signup', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
   console.log(req.body)
   //Look up the user by email to make sure they are "new"
   db.User.findOne({ email: req.body.email })
@@ -54,11 +51,7 @@ router.post('/signup', cors(corsOrigin),(req, res) => {
          let token = jwt.sign(newUser.toJSON(), process.env.JWT_SECRET, {
            expiresIn: 60 * 60 * 8 // 8 hours in seconds
          })
-
-         res.send([
-           {token},
-           {'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
-          ])
+         res.send({token})
        })
        .catch(err => {
          console.log('Error creating user', err)

@@ -2,20 +2,14 @@ let db = require('../models')
 let router = require('express').Router()
 let jwt = require('jsonwebtoken')
 
-const corsOrigin = {
-	origin: 'https://sam-guy-garage.herokuapp.com/'
-  }
-
 //gets a list of all scheduled sales
-router.get('/', cors(corsOrigin), (req, res) => {
+router.get('/', (req, res) => {
+	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
 	db.Sale.find({ user: req.user._id })
 	.populate('user')
 	.populate('list')
 	.then((currentSales) => {
-		res.send([
-			{currentSales},
-			{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
-		])
+		res.send({currentSales})
 	})
 	.catch(err => {
 		console.log('Error', err)
@@ -24,7 +18,8 @@ router.get('/', cors(corsOrigin), (req, res) => {
 
 //creates a sale event
 //req.body.list requires the list _id 
-router.post('/', cors(corsOrigin), (req, res) => {
+router.post('/', (req, res) => {
+	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
 	db.Sale.create({
 		user: req.body.user,
 		address: req.body.address,
@@ -32,10 +27,7 @@ router.post('/', cors(corsOrigin), (req, res) => {
 		list: req.body.list
 	})
 	.then(() => {
-		res.send([
-			{ message: "Successfully Created a Sale", status: '200'},
-		{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
-		])
+		res.send({ message: "Successfully Created a Sale", status: '200'})
 	})
 	.catch(err => {
 		console.log('Error', err)
@@ -44,7 +36,8 @@ router.post('/', cors(corsOrigin), (req, res) => {
 })
 
 //edit a current sale
-router.put('/:id', cors(corsOrigin), (req, res) => {
+router.put('/:id', (req, res) => {
+	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
 	db.Sale.findByIdAndUpdate({_id: req.params.id},{
 		address: req.body.address,
 		date: req.body.date,
@@ -52,10 +45,7 @@ router.put('/:id', cors(corsOrigin), (req, res) => {
 	})
 	.populate('list')
 	.then(() =>{
-		res.send([
-			{ message: 'Successfully Edited a Sale', status: '200'},
-			{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
-		])
+		res.send({ message: 'Successfully Edited a Sale', status: '200'})
 	})
 	.catch(err => {
 		console.log('Error', err)
@@ -63,13 +53,11 @@ router.put('/:id', cors(corsOrigin), (req, res) => {
 })
 
 //delete a sale
-router.delete('/:id', cors(corsOrigin), (req, res) => {
+router.delete('/:id', (req, res) => {
+	res.setHeader('Access-Control-Allow-Origin', 'https://sam-guy-garage-server.herokuapp.com/')
 	db.Sale.findByIdAndDelete({_id: req.params.id})
 	.then(() => {
-		res.send([
-			{message: 'Successfully Deleted a Sale', status: '200'},
-			{'Access-Control-Allow-Origin': 'https://sam-guy-garage-server.herokuapp.com/'}
-		])
+		res.send({message: 'Successfully Deleted a Sale', status: '200'})
 	})
 	.catch(err => {
 		console.log('Error', err)
