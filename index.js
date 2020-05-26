@@ -14,9 +14,7 @@ let rowdyResults = rowdyLogger.begin(app)
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false })) // Accept form data
 app.use(express.json()) // Accept data from fetch (or any AJAX call)
-app.use(cors({
-  origin: 'https://sam-guy-garage.herokuapp.com/'
-}))//cors middleware for securing the app routes to logged in users
+app.use(cors())//cors middleware for securing the app routes to logged in users
 app.options('*', cors())
 
 
